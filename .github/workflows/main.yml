@@ -37,4 +37,5 @@ jobs:
 
       # 4) Compiler, tester et vérifier avec Maven
       - name: Build and test with Maven
-        run: mvn clean verify
++       working-directory: Java   # ← indiquez ici le chemin vers votre dossier contenant le pom.xml
++       run: mvn clean verify
