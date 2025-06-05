@@ -1,0 +1,45 @@
+# .github/workflows/sonar.yml
+name: Sonar
+
+# Déclenchement sur push ou pull request vers main
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  sonar-analysis:
+    name: Run SonarCloud Analysis
+    runs-on: ubuntu-24.04
+
+    steps:
+      # 1) Récupérer le code
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      # 2) Installer Java 19 (ou la version que votre projet utilise)
+      - name: Set up JDK 19
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '19'
+          cache: 'maven'
+
+      # 3) Afficher la version de Java (optionnel, juste pour debug)
+      - name: Check Java version
+        run: java -version
+
+      # 4) Exécuter l’analyse SonarCloud avec Maven
+      - name: Run SonarCloud Scan
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          mvn -B verify sonar:sonar \
+            -Dsonar.projectKey=DamienFourneaux_DevOps \
+            -Dsonar.organization=damienfourneaux \
+            -Dsonar.host.url=https://sonarcloud.io \
+            -Dsonar.login=$SONAR_TOKEN \
+            --file ./Java/pom.xml
