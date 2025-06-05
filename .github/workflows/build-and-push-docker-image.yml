@@ -54,3 +54,5 @@ jobs:
             -H "Accept: application/vnd.github.v3+json" \
             https://api.github.com/repos/LucasCgrs/ansible_lcongras/actions/workflows/deploy.yml/dispatches \
             -d '{"ref":"main"}'
+
+#Trigger
