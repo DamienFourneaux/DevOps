@@ -2,13 +2,10 @@
 name: CI devops 2025
 
 on:
-  # Déclencher sur un push dans les branches main ou develop
   push:
     branches:
       - main
       - develop
-
-  # Déclencher également sur Pull Request via ces mêmes branches
   pull_request:
     branches:
       - main
@@ -19,23 +16,23 @@ jobs:
     runs-on: ubuntu-24.04
 
     steps:
-      # 1) Récupérer le code source
+      # 1) On clone le dépôt
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2) Installer le JDK 19
+      # 2) On installe JDK 19
       - name: Set up JDK 19
         uses: actions/setup-java@v4
         with:
           java-version: '19'
-          distribution: 'temurin'       # ou 'zulu', 'adopt', etc. selon vos préférences
-          cache: 'maven'                # met en cache le répertoire ~/.m2 pour accélérer les builds
+          distribution: 'temurin'
+          cache: 'maven'
 
-      # 3) Afficher la version de Java (debug, optionnel)
+      # 3) On vérifie la version de Java (étape optionnelle, mais pratique pour debug)
       - name: Check Java version
         run: java -version
 
-      # 4) Compiler, tester et vérifier avec Maven
+      # 4) On exécute Maven dans le dossier où se trouve le pom.xml
       - name: Build and test with Maven
-+       working-directory: Java   # ← indiquez ici le chemin vers votre dossier contenant le pom.xml
-+       run: mvn clean verify
+        working-directory: Java       # ← Remplacez “Java” par le chemin exact de votre dossier contenant pom.xml
+        run: mvn clean verify
