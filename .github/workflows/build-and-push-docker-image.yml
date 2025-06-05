@@ -1,18 +1,15 @@
+# .github/workflows/build-and-push-docker.yml
 name: Build and Push Docker Image
 
 on:
-  workflow_run:
-    workflows: ["CI Test Backend"]
-    types:
-      - completed
+  push:
+    branches:
+      - main
 
 jobs:
   build-and-push:
     name: Build & Push Docker Images
     runs-on: ubuntu-24.04
-    if: >
-      github.event.workflow_run.conclusion == 'success' &&
-      github.event.workflow_run.head_branch == 'main'
 
     steps:
       - name: Checkout code
@@ -28,7 +25,7 @@ jobs:
         with:
           context: ./simple-api
           tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/tp-devops-simple-api-backend:${{github.sha}}
+            ${{ secrets.DOCKERHUB_USERNAME }}/tp-devops-simple-api-backend:${{ github.sha }}
             ${{ secrets.DOCKERHUB_USERNAME }}/tp-devops-simple-api-backend:latest
           push: ${{ github.ref == 'refs/heads/main' }}
 
@@ -37,7 +34,7 @@ jobs:
         with:
           context: ./database
           tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/tp-devops-simple-api-database:${{github.sha}}
+            ${{ secrets.DOCKERHUB_USERNAME }}/tp-devops-simple-api-database:${{ github.sha }}
             ${{ secrets.DOCKERHUB_USERNAME }}/tp-devops-simple-api-database:latest
           push: ${{ github.ref == 'refs/heads/main' }}
 
@@ -46,7 +43,7 @@ jobs:
         with:
           context: ./http-server
           tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/tp-devops-simple-api-httpd:${{github.sha}}
+            ${{ secrets.DOCKERHUB_USERNAME }}/tp-devops-simple-api-httpd:${{ github.sha }}
             ${{ secrets.DOCKERHUB_USERNAME }}/tp-devops-simple-api-httpd:latest
           push: ${{ github.ref == 'refs/heads/main' }}
 
@@ -55,5 +52,5 @@ jobs:
           curl -X POST \
             -H "Authorization: token ${{ secrets.REPO_B_PAT }}" \
             -H "Accept: application/vnd.github.v3+json" \
-            https://api.github.com/repos/Lucascgrs/ansible_lcongras/actions/workflows/deploy.yml/dispatches \
+            https://api.github.com/repos/LucasCgrs/ansible_lcongras/actions/workflows/deploy.yml/dispatches \
             -d '{"ref":"main"}'
