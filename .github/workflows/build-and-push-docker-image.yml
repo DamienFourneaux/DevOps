@@ -23,25 +23,25 @@ jobs:
       - name: Build and push backend image
         uses: docker/build-push-action@v6
         with:
-          context: ./simple-api
+          context: ./Java
           tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/tp-devops-simple-api-backend:${{ github.sha }}
-            ${{ secrets.DOCKERHUB_USERNAME }}/tp-devops-simple-api-backend:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/tp-01-backend:${{ github.sha }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/tp-01-backend:latest
           push: ${{ github.ref == 'refs/heads/main' }}
 
       - name: Build and push database image
         uses: docker/build-push-action@v6
         with:
-          context: ./database
+          context: ./Postgres
           tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/tp-devops-simple-api-database:${{ github.sha }}
-            ${{ secrets.DOCKERHUB_USERNAME }}/tp-devops-simple-api-database:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/tp-01-database:${{ github.sha }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/tp-01database:latest
           push: ${{ github.ref == 'refs/heads/main' }}
 
       - name: Build and push httpd image
         uses: docker/build-push-action@v6
         with:
-          context: ./http-server
+          context: ./HTTP
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/tp-devops-simple-api-httpd:${{ github.sha }}
             ${{ secrets.DOCKERHUB_USERNAME }}/tp-devops-simple-api-httpd:latest
