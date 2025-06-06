@@ -1,5 +1,6 @@
 version: "3.8"
 
+# Docker Compose configuration to build and run the Postgres database service
 services:
   database:
     build:
@@ -14,6 +15,7 @@ services:
     networks:
       - app-network
 
+# Docker Compose configuration to build and run the backend service
   backend:
     build:
       context: ./Java
@@ -29,6 +31,7 @@ services:
     networks:
       - app-network
 
+# Docker Compose configuration to build and run the HTTP server service
   http_server:
     build:
       context: ./HTTP
@@ -40,6 +43,7 @@ services:
     networks:
       - app-network
 
+# Docker Compose configuration to run the Adminer database management UI
   adminer:
     image: adminer
     container_name: adminer
@@ -50,6 +54,7 @@ services:
     networks:
       - app-network
 
+# Docker Compose configuration for the custom network and data volume
 networks:
   app-network:
     driver: bridge
