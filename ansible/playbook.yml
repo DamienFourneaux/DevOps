@@ -17,3 +17,4 @@
 # You can run this playbook using the command:
 # ansible-playbook -i inventory playbook.yml
 # Tou have the definition of each role in a ReadME.md file in the roles directory.
+# Ensure you have the necessary permissions and configurations set up in your Ansible environment.
