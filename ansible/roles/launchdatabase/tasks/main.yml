@@ -1,0 +1,9 @@
+- name: Run database
+  docker_container:
+    env:
+      POSTGRES_PASSWORD: pwd
+    name: database
+    image: dfourneaux/tp01-database
+    pull: yes
+    networks: 
+      - name: appnetwork

@@ -4,3 +4,7 @@
 
   roles:
     - docker
+    - createnetwork
+    - launchdatabase
+    - launchapp
+    - launchproxy

@@ -1,0 +1,9 @@
+- name: Run HTTPD
+  docker_container:
+    name: httpd
+    image: dfourneaux/tp-devops-simple-api-httpd
+    pull: yes
+    networks: 
+      - name: appnetwork
+    ports:
+      - "80:80"

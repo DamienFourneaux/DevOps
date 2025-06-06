@@ -1,0 +1,10 @@
+- name: Run backend
+  docker_container:
+    env:
+      DATABASE_HOST: database
+      DATABASE_PASSWORD: pwd
+    name: backend
+    image: dfourneaux/tp01-backend
+    pull: yes
+    networks: 
+      - name: appnetwork
